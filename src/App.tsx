@@ -1,7 +1,6 @@
 import { Nav } from "./components/Nav";
 import { Reveal } from "./components/Reveal";
-import { Scene } from "./components/Scene";
-import { ShrineBackground } from "./components/ShrineBackground";
+import { HoloScene } from "./components/HoloScene";
 import { SectionTitle } from "./components/SectionTitle";
 import { contacts, education, profile, projects, quests, skills } from "./data/profile";
 import portrait from "./assets/FotoFormal.jpeg";
@@ -11,7 +10,7 @@ const ROMAN = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI"
 function Hero() {
   return (
     <section className="hero" id="top" aria-labelledby="hero-name">
-      <ShrineBackground />
+      <HoloScene mode="shrine" className="shrine-bg" label="Candlelit sword shrine" />
       <div className="hero-scrim" aria-hidden="true" />
       <div className="hero-inner">
         <div className="hero-copy">
@@ -25,18 +24,6 @@ function Hero() {
           </h1>
           <p className="hero-role">{profile.role}</p>
           <p className="hero-summary">{profile.dialog[1]} {profile.dialog[2]}</p>
-          <dl className="hero-stats">
-            {profile.stats.map((stat) => (
-              <div key={stat.label}>
-                <dt>{stat.value}</dt>
-                <dd>{stat.label}</dd>
-              </div>
-            ))}
-          </dl>
-          <div className="hero-actions">
-            <a className="btn btn-primary" href="#ashen-one">Draw the card</a>
-            <a className="btn" href="#relics">View relics</a>
-          </div>
         </div>
       </div>
       <a className="scroll-cue" href="#ashen-one" aria-label="Scroll to the card">
@@ -56,7 +43,7 @@ function AshenCard() {
             numeral="✦"
             eyebrow="Bonfire Archive · 001 / 001"
             title="The Ashen One"
-            lead="A holographic card kindled beside the candlelit shrine. Hover to tilt it, drag to rotate it, and double-click — or press F — to turn it over."
+            lead="A holographic card, kindled at the bonfire. Hover to tilt it, drag to rotate it, and double-click to turn it over."
           />
           <Reveal as="ul" className="ashen-hints" delay={80}>
             <li><span>Hover</span>Tilt the card toward the light</li>
@@ -65,7 +52,7 @@ function AshenCard() {
           </Reveal>
         </div>
         <Reveal className="ashen-card" delay={120}>
-          <Scene />
+          <HoloScene mode="card" className="card-frame" label="The Ashen One, an interactive holographic card" />
         </Reveal>
       </div>
     </section>

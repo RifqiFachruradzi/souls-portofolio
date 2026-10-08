@@ -35,10 +35,10 @@ export const profile = {
   role: 'Full Stack Developer',
   location: 'Jakarta, Indonesia',
   summary:
-    "Full Stack Developer with production experience building enterprise systems for Indonesia's largest transportation and logistics group. Delivered 45+ REST API endpoints in Go for a yard management platform handling real-time vehicle operations, and currently builds internal business platforms end to end using React.js and TypeScript in a micro-frontend architecture with Bun and Hono services.",
+    "Full Stack Developer with production experience building enterprise systems for Indonesia's largest transportation and logistics group. Delivered 45+ REST API endpoints in Go for a yard management platform handling real-time vehicle operations, and currently builds internal business platforms end to end using React.js and TypeScript in a micro-frontend architecture.",
   dialog: [
     "Hi! I'm Rifqi, a Full Stack Developer from Jakarta.",
-    'I build APIs with Go, Python & Hono, and cozy UIs with React + TypeScript.',
+    'I build APIs with Go & Python, and cozy UIs with React + TypeScript.',
     'Right now I ship enterprise apps for a big logistics group in Indonesia.',
     'Welcome to the neon city. Every store here is a part of my story ~',
   ],
