@@ -1,6 +1,7 @@
 import { Nav } from "./components/Nav";
 import { Reveal } from "./components/Reveal";
 import { Scene } from "./components/Scene";
+import { ShrineBackground } from "./components/ShrineBackground";
 import { SectionTitle } from "./components/SectionTitle";
 import { contacts, education, profile, projects, quests, skills } from "./data/profile";
 import portrait from "./assets/FotoFormal.jpeg";
@@ -10,36 +11,63 @@ const ROMAN = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI"
 function Hero() {
   return (
     <section className="hero" id="top" aria-labelledby="hero-name">
-      <div className="hero-copy">
-        <p className="eyebrow hero-eyebrow">
-          <span className="ember-dot" aria-hidden="true" />
-          Bonfire Archive · {profile.location}
-        </p>
-        <h1 id="hero-name">
-          <span className="hero-first">Muhammad Rifqi</span>
-          <span className="hero-last">Fachruradzi</span>
-        </h1>
-        <p className="hero-role">{profile.role}</p>
-        <p className="hero-summary">{profile.dialog[1]} {profile.dialog[2]}</p>
-        <dl className="hero-stats">
-          {profile.stats.map((stat) => (
-            <div key={stat.label}>
-              <dt>{stat.value}</dt>
-              <dd>{stat.label}</dd>
-            </div>
-          ))}
-        </dl>
-        <div className="hero-actions">
-          <a className="btn btn-primary" href="#relics">View relics</a>
-          <a className="btn" href="#summon">Place summon sign</a>
+      <ShrineBackground />
+      <div className="hero-scrim" aria-hidden="true" />
+      <div className="hero-inner">
+        <div className="hero-copy">
+          <p className="eyebrow hero-eyebrow">
+            <span className="ember-dot" aria-hidden="true" />
+            Bonfire Archive · {profile.location}
+          </p>
+          <h1 id="hero-name">
+            <span className="hero-first">Muhammad Rifqi</span>
+            <span className="hero-last">Fachruradzi</span>
+          </h1>
+          <p className="hero-role">{profile.role}</p>
+          <p className="hero-summary">{profile.dialog[1]} {profile.dialog[2]}</p>
+          <dl className="hero-stats">
+            {profile.stats.map((stat) => (
+              <div key={stat.label}>
+                <dt>{stat.value}</dt>
+                <dd>{stat.label}</dd>
+              </div>
+            ))}
+          </dl>
+          <div className="hero-actions">
+            <a className="btn btn-primary" href="#ashen-one">Draw the card</a>
+            <a className="btn" href="#relics">View relics</a>
+          </div>
         </div>
       </div>
-      <div className="hero-card">
-        <Scene />
-      </div>
-      <a className="scroll-cue" href="#bonfire" aria-label="Scroll to the bonfire">
+      <a className="scroll-cue" href="#ashen-one" aria-label="Scroll to the card">
         <span aria-hidden="true" />
       </a>
+    </section>
+  );
+}
+
+function AshenCard() {
+  return (
+    <section className="section ashen" id="ashen-one" aria-labelledby="ashen-title">
+      <div className="ashen-grid">
+        <div className="ashen-copy">
+          <SectionTitle
+            id="ashen-title"
+            numeral="✦"
+            eyebrow="Bonfire Archive · 001 / 001"
+            title="The Ashen One"
+            lead="A holographic card kindled beside the candlelit shrine. Hover to tilt it, drag to rotate it, and double-click — or press F — to turn it over."
+          />
+          <Reveal as="ul" className="ashen-hints" delay={80}>
+            <li><span>Hover</span>Tilt the card toward the light</li>
+            <li><span>Drag</span>Rotate it in your hand</li>
+            <li><span>Double-click</span>Flip it to read the back</li>
+          </Reveal>
+        </div>
+        <Reveal className="ashen-card" delay={120}>
+          <Scene />
+        </Reveal>
+      </div>
     </section>
   );
 }
@@ -217,6 +245,7 @@ export default function App() {
       <Nav />
       <main>
         <Hero />
+        <AshenCard />
         <Bonfire />
         <Journey />
         <Relics />
