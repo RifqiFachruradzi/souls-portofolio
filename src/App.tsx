@@ -1,6 +1,7 @@
 import { Nav } from "./components/Nav";
 import { Reveal } from "./components/Reveal";
-import { HoloScene } from "./components/HoloScene";
+import { PixelCanvas } from "./components/PixelCanvas";
+import { PixelCard } from "./components/PixelCard";
 import { SectionTitle } from "./components/SectionTitle";
 import { contacts, education, profile, projects, quests, skills } from "./data/profile";
 import portrait from "./assets/FotoFormal.jpeg";
@@ -10,7 +11,9 @@ const ROMAN = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI"
 function Hero() {
   return (
     <section className="hero" id="top" aria-labelledby="hero-name">
-      <HoloScene mode="shrine" className="shrine-bg" label="Candlelit sword shrine" />
+      <div className="pixel-bg" aria-hidden="true">
+        <PixelCanvas variant="hero" />
+      </div>
       <div className="hero-scrim" aria-hidden="true" />
       <div className="hero-inner">
         <div className="hero-copy">
@@ -43,16 +46,16 @@ function AshenCard() {
             numeral="✦"
             eyebrow="Bonfire Archive · 001 / 001"
             title="The Ashen One"
-            lead="A holographic card, kindled at the bonfire. Hover to tilt it, drag to rotate it, and double-click to turn it over."
+            lead="A pixel trading card, kindled at the bonfire. Hover to tilt it, drag to spin it, and double-click to turn it over."
           />
           <Reveal as="ul" className="ashen-hints" delay={80}>
             <li><span>Hover</span>Tilt the card toward the light</li>
-            <li><span>Drag</span>Rotate it in your hand</li>
+            <li><span>Drag</span>Spin it in your hand</li>
             <li><span>Double-click</span>Flip it to read the back</li>
           </Reveal>
         </div>
         <Reveal className="ashen-card" delay={120}>
-          <HoloScene mode="card" className="card-frame" label="The Ashen One, an interactive holographic card" />
+          <PixelCard />
         </Reveal>
       </div>
     </section>
