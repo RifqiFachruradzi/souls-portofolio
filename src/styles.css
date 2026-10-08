@@ -351,6 +351,45 @@ h3 {
   box-shadow: 0 40px 120px -40px rgba(255, 100, 20, 0.22), 0 0 0 1px rgba(0, 0, 0, 0.6);
 }
 
+.shader-frame::before,
+.shader-frame::after {
+  position: absolute;
+  left: 50%;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+/* ember and caption shown over the card host while its 13 MB document downloads */
+.shader-frame::before {
+  content: "";
+  top: calc(50% - 30px);
+  width: 9px;
+  height: 9px;
+  margin-left: -4.5px;
+  border-radius: 50%;
+  background: #ffd8a0;
+  box-shadow: 0 0 6px 2px rgba(255, 150, 60, 0.9), 0 0 22px 8px rgba(255, 90, 20, 0.35), 0 0 60px 22px rgba(255, 70, 10, 0.12);
+  animation: breathe 2.4s ease-in-out infinite;
+}
+
+.shader-frame::after {
+  content: "Kindling the bonfire";
+  top: calc(50% + 4px);
+  transform: translateX(-50%);
+  color: var(--dim);
+  font: 500 11px/1 var(--display);
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.shader-frame:has(.dark-souls-holo-card[data-state="loading"])::before,
+.shader-frame:has(.dark-souls-holo-card[data-state="loading"])::after {
+  opacity: 1;
+}
+
 .scroll-cue {
   position: absolute;
   left: 50%;
