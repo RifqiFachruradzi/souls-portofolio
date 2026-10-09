@@ -4,7 +4,7 @@ import { ValleyBackground } from "./components/ValleyBackground";
 import { LeafMark } from "./components/LeafMark";
 import { SectionTitle } from "./components/SectionTitle";
 import { contacts, education, profile, projects, quests, skills } from "./data/profile";
-import portrait from "./assets/FotoFormal.jpeg";
+import photo from "./assets/profile-photo.jpg";
 
 const KANJI = ["壱", "弐", "参", "肆", "伍", "陸", "漆", "捌", "玖", "拾"];
 
@@ -38,9 +38,15 @@ function Bonfire() {
     <section className="section" id="bonfire" aria-labelledby="bonfire-title">
       <SectionTitle id="bonfire-title" numeral="壱" eyebrow="Rest by the falls" title="About Me" />
       <div className="bonfire-grid">
-        <Reveal className="portrait">
-          <img src={portrait} alt={`Portrait of ${profile.name}`} loading="lazy" width={420} height={525} />
-          <span className="portrait-caption">{profile.name}</span>
+        <Reveal className="profile-card">
+          <p className="profile-title">Shinobi Profile</p>
+          <figure className="profile-photo">
+            <img src={photo} alt={`Portrait of ${profile.name}`} loading="lazy" width={472} height={709} />
+          </figure>
+          <p className="profile-plate">
+            <span>Shinobi of Code</span>
+            <span>{profile.role}</span>
+          </p>
         </Reveal>
         <div className="bonfire-copy">
           <Reveal as="p" className="summary">{profile.summary}</Reveal>

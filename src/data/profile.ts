@@ -307,5 +307,5 @@ export const contacts: Contact[] = [
   { icon: 'mail', label: 'Email', value: 'rfachruradzi@gmail.com', href: 'mailto:rfachruradzi@gmail.com' },
   { icon: 'linkedin', label: 'LinkedIn', value: 'in/fachruradzi', href: 'https://www.linkedin.com/in/fachruradzi/' },
   { icon: 'github', label: 'GitHub', value: 'RifqiFachruradzi', href: 'https://github.com/RifqiFachruradzi' },
-  { icon: 'camera', label: 'Instagram', value: '@anas3ra', href: 'https://www.instagram.com/anas3ra' },
+  { icon: 'camera', label: 'Instagram', value: '@fachrvradzi', href: 'https://www.instagram.com/fachrvradzi' },
 ];

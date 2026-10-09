@@ -426,54 +426,100 @@ h3 {
   align-items: start;
 }
 
-.portrait {
+/* the profile photo in a ninja-card frame: steel rim, engraved plate, headband strip */
+.profile-card {
   position: relative;
+  display: grid;
+  gap: 12px;
   width: 100%;
-  max-width: 340px;
+  max-width: 360px;
   justify-self: center;
-  padding: 12px;
-  border: 1px solid var(--line);
-  background: linear-gradient(180deg, rgba(99, 208, 196, 0.06), transparent 40%);
+  padding: 18px 18px 16px;
+  border-radius: 12px;
+  background:
+    radial-gradient(120% 60% at 50% 0%, rgba(159, 196, 106, 0.1), transparent 60%),
+    repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.018) 0 2px, transparent 2px 7px),
+    linear-gradient(170deg, #15231d, #0a120f);
+  box-shadow:
+    inset 0 0 0 2px #070c0b,
+    inset 0 0 0 5px #9aa6ac,
+    inset 0 0 0 7px #4a565c,
+    inset 0 0 0 9px #070c0b,
+    inset 0 0 0 10px rgba(245, 139, 60, 0.7),
+    0 30px 60px -20px rgba(0, 0, 0, 0.9),
+    0 0 50px -12px rgba(245, 139, 60, 0.3);
+  font-family: var(--display);
 }
 
-.portrait::before,
-.portrait::after {
-  content: "";
-  position: absolute;
-  width: 22px;
-  height: 22px;
-  border-color: var(--gold);
-  border-style: solid;
+.profile-card.is-shown {
+  transition: opacity 0.9s ease, transform 0.5s ease, box-shadow 0.5s ease;
 }
 
-.portrait::before {
-  top: -1px;
-  left: -1px;
-  border-width: 1px 0 0 1px;
+.profile-card.is-shown:hover {
+  transform: translateY(-4px) rotate(-0.6deg);
 }
 
-.portrait::after {
-  right: -1px;
-  bottom: -1px;
-  border-width: 0 1px 1px 0;
+.profile-title {
+  margin: 0;
+  padding: 8px 24px 7px;
+  border-radius: 6px;
+  background:
+    radial-gradient(circle at 12px 50%, #5d686e 0 3px, #e9eef0 3.5px 4.5px, transparent 5px),
+    radial-gradient(circle at calc(100% - 12px) 50%, #5d686e 0 3px, #e9eef0 3.5px 4.5px, transparent 5px),
+    linear-gradient(180deg, #eef2f3 0%, #b4bec3 48%, #7c878d 52%, #a7b1b6 100%);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.45), 0 2px 0 rgba(0, 0, 0, 0.5);
+  color: #1b2420;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: 0.16em;
+  text-align: center;
+  text-transform: uppercase;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.55);
 }
 
-.portrait img {
+.profile-photo {
+  margin: 0;
+  overflow: hidden;
+  border-radius: 4px;
+  border: 3px solid #070c0b;
+  box-shadow: 0 0 0 2px #7c878d;
+}
+
+.profile-photo img {
   width: 100%;
   aspect-ratio: 4 / 5;
   height: auto;
   object-fit: cover;
-  filter: sepia(0.25) saturate(0.85) contrast(1.05) brightness(0.92);
+  object-position: 50% 18%;
 }
 
-.portrait-caption {
-  display: block;
-  margin-top: 12px;
-  color: var(--dim);
-  font: 500 11px/1.4 var(--display);
-  letter-spacing: 0.24em;
+.profile-plate {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 8px 6px 7px;
+  border-radius: 4px;
+  background:
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.03) 0 1px, transparent 1px 4px),
+    linear-gradient(180deg, #1f2c3d, #141d29);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08);
   text-align: center;
   text-transform: uppercase;
+}
+
+.profile-plate span:first-child {
+  color: var(--ember);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.32em;
+}
+
+.profile-plate span:last-child {
+  color: #f1f4ec;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
 }
 
 .summary {
@@ -997,7 +1043,7 @@ h3 {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .portrait {
+  .profile-card {
     margin: 0 auto;
   }
 }
