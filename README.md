@@ -29,6 +29,9 @@ Content mirrors [portoqiqi.vercel.app](https://portoqiqi.vercel.app) and lives i
 - `src/components/PixelCanvas.tsx`: mounts the valley on a canvas and runs the loop.
 - `src/components/ValleyBackground.tsx`: the fixed full-page background and its scroll veil.
 - `src/components/LeafMark.tsx`: the leaf-and-spiral mark.
+- `src/motion.ts`: entrance motion with [anime.js](https://animejs.com) v4: the hero intro (scrambled location,
+  rising letters, a settling surname), section titles whose letters rise as a shuriken spins in, and skill counts
+  that tick up. All of it is skipped under `prefers-reduced-motion`.
 
 ## Development
 

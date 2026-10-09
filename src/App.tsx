@@ -1,7 +1,9 @@
 import { Nav } from "./components/Nav";
 import { Reveal } from "./components/Reveal";
 import { ValleyBackground } from "./components/ValleyBackground";
+import { useLayoutEffect, useRef } from "react";
 import { LeafMark } from "./components/LeafMark";
+import { countUp, heroIntro, prefersReducedMotion } from "./motion";
 import { SectionTitle } from "./components/SectionTitle";
 import { contacts, education, profile, projects, quests, skills } from "./data/profile";
 import photo from "./assets/profile-photo.jpg";
@@ -9,14 +11,21 @@ import photo from "./assets/profile-photo.jpg";
 const KANJI = ["壱", "弐", "参", "肆", "伍", "陸", "漆", "捌", "玖", "拾"];
 
 function Hero() {
+  const ref = useRef<HTMLElement>(null);
+
+  useLayoutEffect(() => {
+    if (!ref.current || prefersReducedMotion()) return undefined;
+    return heroIntro(ref.current);
+  }, []);
+
   return (
-    <section className="hero" id="top" aria-labelledby="hero-name">
+    <section ref={ref} className="hero" id="top" aria-labelledby="hero-name">
       <div className="hero-scrim" aria-hidden="true" />
       <div className="hero-inner">
         <div className="hero-copy">
           <p className="eyebrow hero-eyebrow">
             <LeafMark className="hero-leaf" size={18} />
-            {profile.location}
+            <span className="hero-place">{profile.location}</span>
           </p>
           <h1 id="hero-name">
             <span className="hero-first">Muhammad Rifqi</span>
@@ -154,10 +163,18 @@ function Relics() {
 }
 
 function Attributes() {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    if (!ref.current || prefersReducedMotion()) return undefined;
+    const stops = [...ref.current.querySelectorAll<HTMLElement>(".attribute-level")].map(countUp);
+    return () => stops.forEach((stop) => stop());
+  }, []);
+
   return (
     <section className="section" id="attributes" aria-labelledby="attributes-title">
       <SectionTitle id="attributes-title" numeral="肆" eyebrow="Techniques mastered" title="Jutsu & Skills" lead="The tools I reach for, from the backend to the browser." />
-      <div className="attributes">
+      <div ref={ref} className="attributes">
         {skills.map((group, index) => (
           <Reveal key={group.title} className="attribute" delay={index * 60}>
             <h3>
