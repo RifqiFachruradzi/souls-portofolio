@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { LeafMark } from "./LeafMark";
 
 const LINKS = [
-  { href: "#ashen-one", label: "Card" },
   { href: "#bonfire", label: "About" },
   { href: "#journey", label: "Missions" },
   { href: "#relics", label: "Projects" },

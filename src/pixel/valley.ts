@@ -11,9 +11,8 @@ const FALLS = { x0: 99, x1: 140, y0: 81, y1: 224 };
 const SPLASH = { x0: 88, x1: 154, y0: 211, y1: 226 };
 const POOL = { x0: 56, x1: 186, y0: 226, y1: 243 };
 
-export const VIEWS: Record<"hero" | "card", View> = {
-  hero: { x: 0, y: 0, w: 240, h: 243 },
-  card: { x: 52, y: 58, w: 136, h: 170 },
+export const VIEWS: Record<"full", View> = {
+  full: { x: 0, y: 0, w: 240, h: 243 },
 };
 
 const FOAM = [rgb("#ffffff"), rgb("#e4f6f8"), rgb("#bfe6ec")];

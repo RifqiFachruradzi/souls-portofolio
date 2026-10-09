@@ -2,7 +2,7 @@
   color-scheme: dark;
   --bg: #060b0a;
   --bg-raise: #0b1311;
-  --panel: rgba(14, 26, 23, 0.62);
+  --panel: rgba(10, 20, 18, 0.78);
   --line: rgba(170, 200, 180, 0.16);
   --line-strong: rgba(170, 200, 180, 0.34);
   --ink: #e2ecdc;
@@ -34,10 +34,8 @@ html {
 body {
   margin: 0;
   min-height: 100svh;
-  background:
-    radial-gradient(1200px 700px at 78% -10%, rgba(80, 200, 185, 0.08), transparent 60%),
-    radial-gradient(900px 600px at -10% 40%, rgba(30, 80, 60, 0.07), transparent 60%),
-    var(--bg);
+  /* transparent, so the fixed valley behind the page shows through; html carries the page colour */
+  background: transparent;
   color: var(--body);
   font-family: var(--serif);
   font-size: 18px;
@@ -46,7 +44,7 @@ body {
   overflow-x: hidden;
 }
 
-/* faint film grain over everything but the card */
+/* faint film grain over everything */
 body::before {
   content: "";
   position: fixed;
@@ -199,34 +197,28 @@ h3 {
   isolation: isolate;
 }
 
-.hero {
-  background:
-    radial-gradient(60% 70% at 26% 40%, rgba(40, 90, 120, 0.28), transparent 70%),
-    radial-gradient(50% 50% at 30% 95%, rgba(80, 200, 185, 0.1), transparent 70%),
-    var(--bg);
+/* the valley, pixelated and animated, fixed behind the whole page; a veil over it deepens
+   as the page scrolls. It never takes pointer or touch input. */
+.valley-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  height: 100vh;
+  height: 100lvh;
+  pointer-events: none;
+  background: #0d1a1f url("/scene/valley.png") 50% 10% / cover no-repeat;
+  image-rendering: pixelated;
 }
 
-/* the valley, pixelated and animated, on the left; its right and bottom edges melt into the page.
-   It never takes pointer or touch input. */
-.valley-panel {
+.valley-bg .pixel-canvas {
+  object-position: 50% 10%;
+}
+
+.valley-veil {
   position: absolute;
-  top: 0;
-  left: -3vw;
-  z-index: -2;
-  height: 100svh;
-  aspect-ratio: 240 / 243;
-  max-width: 70vw;
-  pointer-events: none;
-  background: #0d1a1f url("/scene/valley.png") center / cover no-repeat;
-  image-rendering: pixelated;
-  -webkit-mask-image:
-    linear-gradient(90deg, #000 62%, transparent 100%),
-    linear-gradient(180deg, #000 80%, transparent 100%);
-  -webkit-mask-composite: source-in;
-  mask-image:
-    linear-gradient(90deg, #000 62%, transparent 100%),
-    linear-gradient(180deg, #000 80%, transparent 100%);
-  mask-composite: intersect;
+  inset: 0;
+  background: var(--bg);
+  opacity: 0.12;
 }
 
 .pixel-canvas {
@@ -244,7 +236,9 @@ h3 {
   height: 100svh;
   z-index: -1;
   pointer-events: none;
-  background: linear-gradient(180deg, rgba(6, 11, 10, 0.5) 0%, transparent 16%, transparent 82%, var(--bg) 100%);
+  background:
+    linear-gradient(90deg, transparent 38%, rgba(6, 11, 10, 0.6) 62%, rgba(6, 11, 10, 0.82) 100%),
+    linear-gradient(180deg, rgba(6, 11, 10, 0.55) 0%, transparent 16%);
 }
 
 .hero-inner {
@@ -304,284 +298,6 @@ h3 {
   color: var(--body);
   font-size: clamp(17px, 1.4vw, 20px);
   font-style: italic;
-}
-
-.ashen-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-  align-items: center;
-  gap: clamp(32px, 5vw, 80px);
-}
-
-.ashen .section-title {
-  justify-items: start;
-  text-align: left;
-  margin-bottom: 32px;
-}
-
-.ashen .section-title .eyebrow {
-  justify-content: flex-start;
-}
-
-.ashen .rule {
-  margin-left: 0;
-}
-
-.ashen-hints {
-  display: grid;
-  gap: 0;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  border-top: 1px solid var(--line);
-}
-
-.ashen-hints li {
-  display: grid;
-  grid-template-columns: 130px minmax(0, 1fr);
-  gap: 16px;
-  padding: 14px 0;
-  border-bottom: 1px solid var(--line);
-  color: var(--body);
-}
-
-.ashen-hints span {
-  color: var(--ember);
-  font: 500 11px/1.9 var(--display);
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-}
-
-/* ---------- the ninja info card ---------- */
-
-.ashen-card {
-  position: relative;
-  width: min(100%, 380px, 50svh);
-  justify-self: center;
-}
-
-.pcard-stage {
-  position: relative;
-  aspect-ratio: 5 / 7;
-  perspective: 1100px;
-  cursor: grab;
-  touch-action: pan-y;
-  user-select: none;
-  -webkit-user-select: none;
-  outline: none;
-}
-
-.pcard-stage:active {
-  cursor: grabbing;
-}
-
-.pcard-stage:focus-visible .pcard {
-  outline: 1px dashed var(--ember);
-  outline-offset: 10px;
-}
-
-.pcard-stage::after {
-  content: "";
-  position: absolute;
-  left: 12%;
-  right: 12%;
-  bottom: -26px;
-  height: 18px;
-  border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(245, 139, 60, 0.22), transparent);
-  pointer-events: none;
-}
-
-.pcard {
-  position: absolute;
-  inset: 0;
-  transform-style: preserve-3d;
-  will-change: transform;
-  --mx: 50%;
-  --my: 50%;
-  --shine: 0;
-}
-
-.pcard-face {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  grid-template-rows: auto minmax(0, 1fr) auto;
-  gap: 12px;
-  padding: 18px 18px 16px;
-  overflow: hidden;
-  border-radius: 12px;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  background:
-    radial-gradient(120% 60% at 50% 0%, rgba(159, 196, 106, 0.1), transparent 60%),
-    repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.018) 0 2px, transparent 2px 7px),
-    linear-gradient(170deg, #15231d, #0a120f);
-  /* a steel rim with a thin orange line inside, like a forehead protector */
-  box-shadow:
-    inset 0 0 0 2px #070c0b,
-    inset 0 0 0 5px #9aa6ac,
-    inset 0 0 0 7px #4a565c,
-    inset 0 0 0 9px #070c0b,
-    inset 0 0 0 10px rgba(245, 139, 60, 0.7),
-    0 30px 60px -20px rgba(0, 0, 0, 0.9),
-    0 0 50px -12px rgba(245, 139, 60, 0.3);
-  font-family: var(--display);
-  color: var(--ink);
-}
-
-.pcard-back {
-  transform: rotateY(180deg);
-  grid-template-rows: auto auto auto auto minmax(0, 1fr) auto;
-  justify-items: center;
-  text-align: center;
-  padding: 22px 22px 18px;
-}
-
-/* engraved steel plate with a rivet at each end */
-.pcard-title {
-  position: relative;
-  width: 100%;
-  margin: 0;
-  padding: 8px 24px 7px;
-  border-radius: 6px;
-  background:
-    radial-gradient(circle at 12px 50%, #5d686e 0 3px, #e9eef0 3.5px 4.5px, transparent 5px),
-    radial-gradient(circle at calc(100% - 12px) 50%, #5d686e 0 3px, #e9eef0 3.5px 4.5px, transparent 5px),
-    linear-gradient(180deg, #eef2f3 0%, #b4bec3 48%, #7c878d 52%, #a7b1b6 100%);
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.45), 0 2px 0 rgba(0, 0, 0, 0.5);
-  color: #1b2420;
-  font-size: 15px;
-  font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: 0.14em;
-  text-align: center;
-  text-transform: uppercase;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.55);
-}
-
-.pcard-art {
-  position: relative;
-  min-height: 0;
-  border-radius: 4px;
-  border: 3px solid #070c0b;
-  box-shadow: 0 0 0 2px #7c878d, inset 0 0 18px rgba(0, 0, 0, 0.5);
-  background: #0d1a1f url("/scene/valley.png") 50% 50% / cover no-repeat;
-  overflow: hidden;
-}
-
-.pcard-art .pixel-canvas {
-  position: absolute;
-  inset: 0;
-}
-
-/* a strip of headband cloth */
-.pcard-plate {
-  display: grid;
-  gap: 4px;
-  margin: 0;
-  padding: 8px 6px 7px;
-  border-radius: 4px;
-  background:
-    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.03) 0 1px, transparent 1px 4px),
-    linear-gradient(180deg, #1f2c3d, #141d29);
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  text-align: center;
-  text-transform: uppercase;
-}
-
-.pcard-plate span:first-child {
-  color: var(--ember);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.32em;
-}
-
-.pcard-plate span:last-child {
-  color: #f1f4ec;
-  font-size: 14px;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-}
-
-.pcard-sigil {
-  margin: 14px 0 6px;
-  color: var(--ember);
-  filter: drop-shadow(0 0 10px rgba(245, 139, 60, 0.45));
-  animation: sigil 3.2s ease-in-out infinite;
-}
-
-@keyframes sigil {
-  50% { transform: rotate(-8deg) scale(1.04); }
-}
-
-.pcard-name {
-  margin: 6px 0 0;
-  color: #f1f4ec;
-  font-size: 18px;
-  font-weight: 800;
-  line-height: 1.25;
-}
-
-.pcard-meta {
-  margin: 6px 0 0;
-  color: var(--hint);
-  font-family: var(--serif);
-  font-size: 13px;
-  font-style: italic;
-}
-
-.pcard-stats {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  align-self: center;
-  gap: 10px 12px;
-  width: 100%;
-  margin: 14px 0 0;
-}
-
-.pcard-stats div {
-  padding: 8px 4px 7px;
-  border-radius: 4px;
-  border: 1px solid rgba(154, 166, 172, 0.45);
-  background: rgba(0, 0, 0, 0.28);
-}
-
-.pcard-stats dt {
-  color: var(--ember);
-  font-size: 19px;
-  font-weight: 800;
-  line-height: 1;
-}
-
-.pcard-stats dd {
-  margin: 5px 0 0;
-  color: var(--body);
-  font-family: var(--serif);
-  font-size: 11.5px;
-  line-height: 1.25;
-}
-
-.pcard-flavor {
-  margin: 0;
-  color: var(--dim);
-  font-family: var(--serif);
-  font-size: 12px;
-  font-style: italic;
-}
-
-.pcard-shine {
-  position: absolute;
-  inset: 0;
-  border-radius: 12px;
-  pointer-events: none;
-  opacity: calc(0.2 + var(--shine) * 0.7);
-  mix-blend-mode: color-dodge;
-  background:
-    radial-gradient(circle at var(--mx) var(--my), rgba(255, 236, 200, 0.3), transparent 42%),
-    linear-gradient(115deg, transparent 25%, rgba(245, 139, 60, 0.14) 38%, rgba(99, 208, 196, 0.14) 50%, rgba(159, 196, 106, 0.14) 62%, transparent 75%);
-  background-size: 100% 100%, 220% 220%;
-  background-position: 0 0, var(--mx) var(--my);
 }
 
 .scroll-cue {
@@ -659,7 +375,7 @@ h3 {
   top: 50%;
   width: 18px;
   height: 18px;
-  background: var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 1 14 10 23 12 14 14 12 23 10 14 1 12 10 10Z' fill='%239fc46a'/%3E%3Ccircle cx='12' cy='12' r='2.2' fill='%23060b0a'/%3E%3C/svg%3E") center / contain no-repeat;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 1 14 10 23 12 14 14 12 23 10 14 1 12 10 10Z' fill='%239fc46a'/%3E%3Ccircle cx='12' cy='12' r='2.2' fill='%23060b0a'/%3E%3C/svg%3E") center / contain no-repeat;
   transform: translate(-50%, -50%) rotate(15deg);
 }
 
@@ -1245,26 +961,16 @@ h3 {
 /* ---------- responsive ---------- */
 
 /* the shrine scene switches from a side framing to a centred one below aspect 1.05 */
+/* portrait: the hero text sits at the bottom, over a scrim */
 @media (max-aspect-ratio: 21/20) {
   .hero {
-    align-items: start;
+    align-items: end;
   }
 
   .hero-inner {
     grid-template-columns: minmax(0, 1fr);
-    padding-top: min(calc(100vw * 243 / 240 * 0.94), 70svh);
+    padding-top: 40svh;
     padding-bottom: 56px;
-  }
-
-  /* portrait: the valley spans the width at the top, the text follows below it */
-  .valley-panel {
-    left: 0;
-    width: 100%;
-    height: auto;
-    max-width: none;
-    max-height: 78svh;
-    -webkit-mask-image: linear-gradient(180deg, #000 70%, transparent 100%);
-    mask-image: linear-gradient(180deg, #000 70%, transparent 100%);
   }
 
   .hero-copy {
@@ -1273,7 +979,8 @@ h3 {
   }
 
   .hero-scrim {
-    background: linear-gradient(180deg, rgba(6, 11, 10, 0.55) 0%, transparent 12%);
+    background:
+      linear-gradient(180deg, rgba(6, 11, 10, 0.55) 0%, transparent 14%, transparent 38%, rgba(6, 11, 10, 0.78) 62%, rgba(6, 11, 10, 0.9) 100%);
   }
 
   .scroll-cue {
@@ -1284,14 +991,6 @@ h3 {
 @media (max-width: 960px) {
   .hero-last {
     font-size: clamp(34px, 9.4vw, 80px);
-  }
-
-  .ashen-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .ashen-card {
-    width: min(100%, 360px, 56svh);
   }
 
   .bonfire-grid {
@@ -1337,11 +1036,6 @@ h3 {
   .nav nav a {
     padding: 14px 0;
     border-bottom: 1px solid var(--line);
-  }
-
-  .ashen-hints li {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 2px;
   }
 
   .sheet {

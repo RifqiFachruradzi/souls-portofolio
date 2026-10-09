@@ -1,7 +1,6 @@
 import { Nav } from "./components/Nav";
 import { Reveal } from "./components/Reveal";
-import { PixelCanvas } from "./components/PixelCanvas";
-import { NinjaCard } from "./components/NinjaCard";
+import { ValleyBackground } from "./components/ValleyBackground";
 import { LeafMark } from "./components/LeafMark";
 import { SectionTitle } from "./components/SectionTitle";
 import { contacts, education, profile, projects, quests, skills } from "./data/profile";
@@ -12,9 +11,6 @@ const KANJI = ["壱", "弐", "参", "肆", "伍", "陸", "漆", "捌", "玖", "�
 function Hero() {
   return (
     <section className="hero" id="top" aria-labelledby="hero-name">
-      <div className="valley-panel" aria-hidden="true">
-        <PixelCanvas view="hero" leaves={28} />
-      </div>
       <div className="hero-scrim" aria-hidden="true" />
       <div className="hero-inner">
         <div className="hero-copy">
@@ -30,35 +26,9 @@ function Hero() {
           <p className="hero-summary">{profile.dialog[1]} {profile.dialog[2]}</p>
         </div>
       </div>
-      <a className="scroll-cue" href="#ashen-one" aria-label="Scroll to the card">
+      <a className="scroll-cue" href="#bonfire" aria-label="Scroll to About">
         <span aria-hidden="true" />
       </a>
-    </section>
-  );
-}
-
-function AshenCard() {
-  return (
-    <section className="section ashen" id="ashen-one" aria-labelledby="ashen-title">
-      <div className="ashen-grid">
-        <div className="ashen-copy">
-          <SectionTitle
-            id="ashen-title"
-            numeral="巻"
-            eyebrow="Hidden Archive · 001 / 001"
-            title="Valley of the End"
-            lead="A ninja info card from the valley where the two statues stand. Hover to tilt it, drag to spin it, and double-click to read the back."
-          />
-          <Reveal as="ul" className="ashen-hints" delay={80}>
-            <li><span>Hover</span>Tilt the card toward the light</li>
-            <li><span>Drag</span>Spin it in your hand</li>
-            <li><span>Double-click</span>Flip it to read the back</li>
-          </Reveal>
-        </div>
-        <Reveal className="ashen-card" delay={120}>
-          <NinjaCard />
-        </Reveal>
-      </div>
     </section>
   );
 }
@@ -233,10 +203,10 @@ function Summon() {
 export default function App() {
   return (
     <>
+      <ValleyBackground />
       <Nav />
       <main>
         <Hero />
-        <AshenCard />
         <Bonfire />
         <Journey />
         <Relics />
