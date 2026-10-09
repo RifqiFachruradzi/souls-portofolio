@@ -1029,37 +1029,16 @@ h3 {
 /* ---------- responsive ---------- */
 
 /* the shrine scene switches from a side framing to a centred one below aspect 1.05 */
-/* portrait: the hero text starts right under the nav, over a scrim at the top; the valley
-   shows below it, down to the scroll cue */
+/* portrait: the hero text centred on screen over a dark pool in the scrim */
 @media (max-aspect-ratio: 21/20) {
-  .hero {
-    align-items: start;
-  }
-
   .hero-inner {
     grid-template-columns: minmax(0, 1fr);
-    padding-top: 100px;
-    padding-bottom: 96px;
+    padding: 72px var(--gutter);
   }
 
   .hero-copy {
     grid-column: 1;
-    justify-self: start;
-    width: auto;
-    max-width: 640px;
-    text-align: left;
-  }
-
-  .hero-copy .hero-eyebrow {
-    justify-content: flex-start;
-  }
-
-  .hero-copy h1 {
-    justify-items: start;
-  }
-
-  .hero-copy .hero-summary {
-    margin-inline: 0;
+    width: 100%;
   }
 
   .hero-eyebrow {
@@ -1068,7 +1047,8 @@ h3 {
 
   .hero-scrim {
     background:
-      linear-gradient(180deg, rgba(6, 11, 10, 0.88) 0%, rgba(6, 11, 10, 0.8) 38%, rgba(6, 11, 10, 0.45) 58%, transparent 74%);
+      radial-gradient(90% 40% at 50% 50%, rgba(6, 11, 10, 0.82), rgba(6, 11, 10, 0.55) 60%, transparent 100%),
+      linear-gradient(180deg, rgba(6, 11, 10, 0.55) 0%, transparent 14%);
   }
 
   .scroll-cue {
