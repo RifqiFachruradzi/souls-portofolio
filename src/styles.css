@@ -96,6 +96,12 @@ h3 {
   text-transform: uppercase;
 }
 
+.frog-mark {
+  flex: none;
+  color: var(--ember);
+  filter: drop-shadow(0 0 6px rgba(245, 139, 60, 0.45));
+}
+
 .leaf-mark {
   flex: none;
   color: var(--ember);
@@ -237,7 +243,7 @@ h3 {
   z-index: -1;
   pointer-events: none;
   background:
-    linear-gradient(90deg, transparent 38%, rgba(6, 11, 10, 0.6) 62%, rgba(6, 11, 10, 0.82) 100%),
+    radial-gradient(46% 42% at 50% 34%, rgba(6, 11, 10, 0.78), rgba(6, 11, 10, 0.5) 60%, transparent 100%),
     linear-gradient(180deg, rgba(6, 11, 10, 0.55) 0%, transparent 16%);
 }
 
@@ -250,12 +256,25 @@ h3 {
   padding: clamp(120px, 16svh, 168px) var(--gutter) 96px;
 }
 
-/* landscape: a narrow block against the right edge, clear of the waterfall */
+/* landscape: a centred block over a dark pool in the scrim */
 .hero-copy {
-  grid-column: 2;
-  justify-self: end;
-  width: min(100%, 540px);
-  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.6);
+  grid-column: 1 / -1;
+  justify-self: center;
+  width: min(100%, 680px);
+  text-align: center;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.7);
+}
+
+.hero-copy .hero-eyebrow {
+  justify-content: center;
+}
+
+.hero-copy h1 {
+  justify-items: center;
+}
+
+.hero-copy .hero-summary {
+  margin-inline: auto;
 }
 
 .hero-eyebrow {
@@ -1028,6 +1047,19 @@ h3 {
     justify-self: start;
     width: auto;
     max-width: 640px;
+    text-align: left;
+  }
+
+  .hero-copy .hero-eyebrow {
+    justify-content: flex-start;
+  }
+
+  .hero-copy h1 {
+    justify-items: start;
+  }
+
+  .hero-copy .hero-summary {
+    margin-inline: 0;
   }
 
   .hero-eyebrow {

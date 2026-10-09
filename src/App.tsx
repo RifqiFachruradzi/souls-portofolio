@@ -16,7 +16,7 @@ function Hero() {
         <div className="hero-copy">
           <p className="eyebrow hero-eyebrow">
             <LeafMark className="hero-leaf" size={18} />
-            Valley of the End · {profile.location}
+            {profile.location}
           </p>
           <h1 id="hero-name">
             <span className="hero-first">Muhammad Rifqi</span>

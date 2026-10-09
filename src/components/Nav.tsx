@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { LeafMark } from "./LeafMark";
+import { FrogMark } from "./FrogMark";
 
 const LINKS = [
   { href: "#bonfire", label: "About" },
@@ -23,7 +23,7 @@ export function Nav() {
   return (
     <header className={`nav${scrolled ? " is-scrolled" : ""}${open ? " is-open" : ""}`}>
       <a className="nav-brand" href="#top" onClick={() => setOpen(false)}>
-        <LeafMark className="nav-leaf" size={18} />
+        <FrogMark className="nav-frog" size={24} />
         Portofolio
       </a>
       <button
