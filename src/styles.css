@@ -1007,16 +1007,16 @@ h3 {
 /* ---------- responsive ---------- */
 
 /* the shrine scene switches from a side framing to a centred one below aspect 1.05 */
-/* portrait: the hero text sits at the bottom, over a scrim */
+/* portrait: the hero text sits a little below the middle, over a scrim */
 @media (max-aspect-ratio: 21/20) {
   .hero {
-    align-items: end;
+    align-items: center;
   }
 
   .hero-inner {
     grid-template-columns: minmax(0, 1fr);
-    padding-top: 40svh;
-    padding-bottom: 56px;
+    padding-top: 22svh;
+    padding-bottom: 40px;
   }
 
   .hero-copy {
@@ -1026,7 +1026,7 @@ h3 {
 
   .hero-scrim {
     background:
-      linear-gradient(180deg, rgba(6, 11, 10, 0.55) 0%, transparent 14%, transparent 38%, rgba(6, 11, 10, 0.78) 62%, rgba(6, 11, 10, 0.9) 100%);
+      linear-gradient(180deg, rgba(6, 11, 10, 0.55) 0%, transparent 14%, transparent 26%, rgba(6, 11, 10, 0.78) 48%, rgba(6, 11, 10, 0.9) 100%);
   }
 
   .scroll-cue {
