@@ -250,23 +250,12 @@ h3 {
   padding: 104px var(--gutter) 72px;
 }
 
+/* landscape: a narrow block against the right edge, clear of the waterfall */
 .hero-copy {
   grid-column: 2;
-  text-align: right;
+  justify-self: end;
+  width: min(100%, 540px);
   text-shadow: 0 2px 18px rgba(0, 0, 0, 0.6);
-}
-
-/* landscape: the hero text sits flush right, against the darker side of the scrim */
-.hero-copy .hero-eyebrow {
-  justify-content: flex-end;
-}
-
-.hero-copy h1 {
-  justify-items: end;
-}
-
-.hero-copy .hero-summary {
-  margin-left: auto;
 }
 
 .hero-eyebrow {
@@ -1021,7 +1010,7 @@ h3 {
 /* ---------- responsive ---------- */
 
 /* the shrine scene switches from a side framing to a centred one below aspect 1.05 */
-/* portrait: the hero text sits a little below the middle, over a scrim */
+/* portrait: the hero text sits around the middle, over a scrim */
 @media (max-aspect-ratio: 21/20) {
   .hero {
     align-items: center;
@@ -1029,31 +1018,20 @@ h3 {
 
   .hero-inner {
     grid-template-columns: minmax(0, 1fr);
-    padding-top: 22svh;
+    padding-top: 12svh;
     padding-bottom: 40px;
   }
 
   .hero-copy {
     grid-column: 1;
+    justify-self: start;
+    width: auto;
     max-width: 640px;
-    text-align: left;
-  }
-
-  .hero-copy .hero-eyebrow {
-    justify-content: flex-start;
-  }
-
-  .hero-copy h1 {
-    justify-items: start;
-  }
-
-  .hero-copy .hero-summary {
-    margin-left: 0;
   }
 
   .hero-scrim {
     background:
-      linear-gradient(180deg, rgba(6, 11, 10, 0.55) 0%, transparent 14%, transparent 26%, rgba(6, 11, 10, 0.78) 48%, rgba(6, 11, 10, 0.9) 100%);
+      linear-gradient(180deg, rgba(6, 11, 10, 0.55) 0%, transparent 14%, transparent 22%, rgba(6, 11, 10, 0.78) 42%, rgba(6, 11, 10, 0.9) 100%);
   }
 
   .scroll-cue {
