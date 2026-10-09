@@ -517,31 +517,19 @@ h3 {
 }
 
 .profile-plate {
-  display: grid;
-  gap: 4px;
   margin: 0;
-  padding: 8px 6px 7px;
+  padding: 10px 6px 9px;
   border-radius: 4px;
   background:
     repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.03) 0 1px, transparent 1px 4px),
     linear-gradient(180deg, #1f2c3d, #141d29);
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  text-align: center;
-  text-transform: uppercase;
-}
-
-.profile-plate span:first-child {
-  color: var(--ember);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.32em;
-}
-
-.profile-plate span:last-child {
   color: #f1f4ec;
   font-size: 14px;
   font-weight: 800;
   letter-spacing: 0.12em;
+  text-align: center;
+  text-transform: uppercase;
 }
 
 .summary {

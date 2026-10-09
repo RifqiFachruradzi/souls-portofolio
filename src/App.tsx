@@ -43,10 +43,7 @@ function Bonfire() {
           <figure className="profile-photo">
             <img src={photo} alt={`Portrait of ${profile.name}`} loading="lazy" width={472} height={709} />
           </figure>
-          <p className="profile-plate">
-            <span>Shinobi of Code</span>
-            <span>{profile.role}</span>
-          </p>
+          <p className="profile-plate">{profile.role}</p>
         </Reveal>
         <div className="bonfire-copy">
           <Reveal as="p" className="summary">{profile.summary}</Reveal>
