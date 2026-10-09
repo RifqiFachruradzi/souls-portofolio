@@ -26,9 +26,6 @@ function Hero() {
           <p className="hero-summary">{profile.dialog[1]} {profile.dialog[2]}</p>
         </div>
       </div>
-      <a className="scroll-cue" href="#bonfire" aria-label="Scroll to About">
-        <span aria-hidden="true" />
-      </a>
     </section>
   );
 }
