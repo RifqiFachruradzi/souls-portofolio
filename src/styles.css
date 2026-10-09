@@ -252,7 +252,21 @@ h3 {
 
 .hero-copy {
   grid-column: 2;
+  text-align: right;
   text-shadow: 0 2px 18px rgba(0, 0, 0, 0.6);
+}
+
+/* landscape: the hero text sits flush right, against the darker side of the scrim */
+.hero-copy .hero-eyebrow {
+  justify-content: flex-end;
+}
+
+.hero-copy h1 {
+  justify-items: end;
+}
+
+.hero-copy .hero-summary {
+  margin-left: auto;
 }
 
 .hero-eyebrow {
@@ -1022,6 +1036,19 @@ h3 {
   .hero-copy {
     grid-column: 1;
     max-width: 640px;
+    text-align: left;
+  }
+
+  .hero-copy .hero-eyebrow {
+    justify-content: flex-start;
+  }
+
+  .hero-copy h1 {
+    justify-items: start;
+  }
+
+  .hero-copy .hero-summary {
+    margin-left: 0;
   }
 
   .hero-scrim {
