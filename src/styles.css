@@ -191,7 +191,7 @@ h3 {
 .hero {
   position: relative;
   display: grid;
-  align-items: center;
+  align-items: start;
   min-height: 100svh;
   overflow: hidden;
   isolation: isolate;
@@ -247,7 +247,7 @@ h3 {
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
-  padding: 104px var(--gutter) 72px;
+  padding: clamp(120px, 16svh, 168px) var(--gutter) 96px;
 }
 
 /* landscape: a narrow block against the right edge, clear of the waterfall */
