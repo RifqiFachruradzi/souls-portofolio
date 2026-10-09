@@ -1,74 +1,80 @@
 import { useEffect, useRef } from "react";
-import { createScene, type SceneVariant } from "../pixel/scene";
+import { VIEWS, createValley, loadValley } from "../pixel/valley";
 
-type PixelCanvasProps = { variant: SceneVariant; className?: string };
+type PixelCanvasProps = { view: keyof typeof VIEWS; leaves: number; className?: string };
 
+const VALLEY_SRC = "/scene/valley.png";
 const FPS = 20;
 
 /**
- * The pixel scene on a canvas sized to the host's aspect. Runs at a steady 20 fps, stops while
- * offscreen or in a background tab, and draws a single still frame under reduced motion.
+ * The animated valley on a canvas at its native pixel size; CSS scales it up with `pixelated`.
+ * Runs at a steady 20 fps, stops while offscreen or in a background tab, and draws a single
+ * still frame under reduced motion.
  */
-export function PixelCanvas({ variant, className = "" }: PixelCanvasProps) {
+export function PixelCanvas({ view, leaves, className = "" }: PixelCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext("2d");
     if (!canvas || !ctx) return undefined;
-    const host = canvas.parentElement ?? canvas;
     const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    let scene: ReturnType<typeof createScene> | null = null;
-    let aspect = 0;
+    let scene: ReturnType<typeof createValley> | null = null;
     let raf = 0;
     let onscreen = true;
     let last = 0;
     let clock = 0;
-
-    const build = () => {
-      const r = host.getBoundingClientRect();
-      const next = r.width > 0 && r.height > 0 ? r.width / r.height : 16 / 9;
-      if (scene && Math.abs(next - aspect) / aspect < 0.04) return;
-      aspect = next;
-      scene = createScene(ctx, variant, aspect);
-      scene.render(clock, 0);
-    };
+    let disposed = false;
 
     const loop = (now: number) => {
       raf = 0;
-      if (!onscreen || document.hidden || still) return;
+      if (!scene || !onscreen || document.hidden || still) return;
       raf = requestAnimationFrame(loop);
       if (now - last < 1000 / FPS - 2) return;
       const dt = last ? Math.min((now - last) / 1000, 0.1) : 0;
       last = now;
       clock += dt;
-      scene?.render(clock, dt);
+      scene.render(clock, dt);
     };
     const start = () => {
-      if (!raf && onscreen && !document.hidden && !still) {
+      if (!raf && scene && onscreen && !document.hidden && !still) {
         last = 0;
         raf = requestAnimationFrame(loop);
       }
     };
 
-    build();
-    start();
-    const resize = new ResizeObserver(() => build());
-    resize.observe(host);
+    loadValley(VALLEY_SRC)
+      .then((base) => {
+        if (disposed) return;
+        scene = createValley(ctx, base, VIEWS[view], leaves);
+        scene.render(clock, 0);
+        start();
+      })
+      .catch(() => {
+        // the canvas keeps its CSS background, the still image
+      });
     const visible = new IntersectionObserver(([entry]) => {
       onscreen = entry?.isIntersecting ?? true;
       start();
     });
-    visible.observe(host);
-    const onVisibility = () => start();
-    document.addEventListener("visibilitychange", onVisibility);
+    visible.observe(canvas);
+    document.addEventListener("visibilitychange", start);
     return () => {
+      disposed = true;
       cancelAnimationFrame(raf);
-      resize.disconnect();
       visible.disconnect();
-      document.removeEventListener("visibilitychange", onVisibility);
+      document.removeEventListener("visibilitychange", start);
     };
-  }, [variant]);
+  }, [view, leaves]);
 
-  return <canvas ref={canvasRef} className={`pixel-canvas${className ? ` ${className}` : ""}`} aria-hidden="true" />;
+  const v = VIEWS[view];
+  return (
+    <canvas
+      ref={canvasRef}
+      width={v.w}
+      height={v.h}
+      className={`pixel-canvas${className ? ` ${className}` : ""}`}
+      aria-hidden="true"
+    />
+  );
 }

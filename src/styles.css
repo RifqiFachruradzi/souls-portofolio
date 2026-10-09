@@ -1,20 +1,20 @@
 :root {
   color-scheme: dark;
-  --bg: #050404;
-  --bg-raise: #0d0a08;
-  --panel: rgba(24, 18, 13, 0.62);
-  --line: rgba(200, 180, 143, 0.16);
-  --line-strong: rgba(200, 180, 143, 0.34);
-  --ink: #e2d3b3;
-  --body: #c8b48f;
-  --dim: #8a7c68;
-  --hint: #bdaa89;
-  --ember: #ff8a3a;
-  --ember-deep: #8a3a12;
-  --ember-glow: rgba(255, 110, 30, 0.35);
-  --gold: #d9b878;
+  --bg: #060b0a;
+  --bg-raise: #0b1311;
+  --panel: rgba(14, 26, 23, 0.62);
+  --line: rgba(170, 200, 180, 0.16);
+  --line-strong: rgba(170, 200, 180, 0.34);
+  --ink: #e2ecdc;
+  --body: #b7c9b6;
+  --dim: #7d9187;
+  --hint: #a8bdb0;
+  --ember: #f58b3c;
+  --ember-deep: #a8501c;
+  --ember-glow: rgba(245, 139, 60, 0.35);
+  --gold: #9fc46a;
   --serif: "EB Garamond Variable", "EB Garamond", Georgia, serif;
-  --display: "Cinzel Variable", Cinzel, "Times New Roman", serif;
+  --display: "Shippori Mincho B1", "Hiragino Mincho ProN", "Yu Mincho", Georgia, serif;
   --gutter: clamp(16px, 5vw, 64px);
   --max: 1200px;
 }
@@ -35,8 +35,8 @@ body {
   margin: 0;
   min-height: 100svh;
   background:
-    radial-gradient(1200px 700px at 78% -10%, rgba(255, 110, 30, 0.08), transparent 60%),
-    radial-gradient(900px 600px at -10% 40%, rgba(120, 60, 20, 0.07), transparent 60%),
+    radial-gradient(1200px 700px at 78% -10%, rgba(80, 200, 185, 0.08), transparent 60%),
+    radial-gradient(900px 600px at -10% 40%, rgba(30, 80, 60, 0.07), transparent 60%),
     var(--bg);
   color: var(--body);
   font-family: var(--serif);
@@ -98,19 +98,10 @@ h3 {
   text-transform: uppercase;
 }
 
-.ember-dot {
-  display: inline-block;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #ffd8a0;
-  box-shadow: 0 0 6px 2px rgba(255, 150, 60, 0.9), 0 0 18px 6px var(--ember-glow);
-  animation: breathe 2.4s ease-in-out infinite;
-}
-
-@keyframes breathe {
-  0%, 100% { transform: scale(0.86); opacity: 0.8; }
-  50% { transform: scale(1.1); opacity: 1; }
+.leaf-mark {
+  flex: none;
+  color: var(--ember);
+  filter: drop-shadow(0 0 6px rgba(245, 139, 60, 0.45));
 }
 
 /* ---------- navigation ---------- */
@@ -131,7 +122,7 @@ h3 {
 .nav.is-scrolled,
 .nav.is-open {
   padding-block: 12px;
-  background: rgba(5, 4, 4, 0.82);
+  background: rgba(6, 11, 10, 0.82);
   border-bottom-color: var(--line);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -208,14 +199,34 @@ h3 {
   isolation: isolate;
 }
 
-/* the moonlit cathedral in pixels, full bleed behind the hero; it never takes pointer or touch input */
-.pixel-bg {
+.hero {
+  background:
+    radial-gradient(60% 70% at 26% 40%, rgba(40, 90, 120, 0.28), transparent 70%),
+    radial-gradient(50% 50% at 30% 95%, rgba(80, 200, 185, 0.1), transparent 70%),
+    var(--bg);
+}
+
+/* the valley, pixelated and animated, on the left; its right and bottom edges melt into the page.
+   It never takes pointer or touch input. */
+.valley-panel {
   position: absolute;
-  inset: 0 0 auto;
-  height: 100svh;
+  top: 0;
+  left: -3vw;
   z-index: -2;
+  height: 100svh;
+  aspect-ratio: 240 / 243;
+  max-width: 70vw;
   pointer-events: none;
-  background: #0a0e1c;
+  background: #0d1a1f url("/scene/valley.png") center / cover no-repeat;
+  image-rendering: pixelated;
+  -webkit-mask-image:
+    linear-gradient(90deg, #000 62%, transparent 100%),
+    linear-gradient(180deg, #000 80%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(90deg, #000 62%, transparent 100%),
+    linear-gradient(180deg, #000 80%, transparent 100%);
+  mask-composite: intersect;
 }
 
 .pixel-canvas {
@@ -227,19 +238,13 @@ h3 {
   image-rendering: crisp-edges;
 }
 
-.pixel-bg .pixel-canvas {
-  object-position: 0 100%;
-}
-
 .hero-scrim {
   position: absolute;
   inset: 0 0 auto;
   height: 100svh;
   z-index: -1;
   pointer-events: none;
-  background:
-    linear-gradient(90deg, transparent 38%, rgba(5, 4, 4, 0.55) 62%, rgba(5, 4, 4, 0.82) 100%),
-    linear-gradient(180deg, rgba(5, 4, 4, 0.55) 0%, transparent 18%, transparent 78%, var(--bg) 100%);
+  background: linear-gradient(180deg, rgba(6, 11, 10, 0.5) 0%, transparent 16%, transparent 82%, var(--bg) 100%);
 }
 
 .hero-inner {
@@ -278,11 +283,11 @@ h3 {
 .hero-last {
   font-size: clamp(40px, 4.7vw, 72px);
   white-space: nowrap;
-  background: linear-gradient(180deg, #f3e6c8 10%, #c8a467 60%, #8a5a24 100%);
+  background: linear-gradient(180deg, #ffe7c9 8%, #f8a45c 55%, #c2591f 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  text-shadow: 0 0 42px rgba(255, 140, 50, 0.12);
+  text-shadow: 0 0 42px rgba(100, 200, 190, 0.12);
 }
 
 .hero-role {
@@ -347,7 +352,7 @@ h3 {
   text-transform: uppercase;
 }
 
-/* ---------- the pixel card ---------- */
+/* ---------- the ninja info card ---------- */
 
 .ashen-card {
   position: relative;
@@ -383,7 +388,7 @@ h3 {
   bottom: -26px;
   height: 18px;
   border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(255, 110, 30, 0.22), transparent);
+  background: radial-gradient(closest-side, rgba(245, 139, 60, 0.22), transparent);
   pointer-events: none;
 }
 
@@ -402,26 +407,27 @@ h3 {
   inset: 0;
   display: grid;
   grid-template-rows: auto minmax(0, 1fr) auto;
-  gap: 10px;
-  padding: 16px 16px 14px;
+  gap: 12px;
+  padding: 18px 18px 16px;
   overflow: hidden;
+  border-radius: 12px;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   background:
-    repeating-linear-gradient(45deg, rgba(201, 159, 69, 0.05) 0 2px, transparent 2px 6px),
-    linear-gradient(180deg, #1a1420, #0d0b12);
-  /* stepped, unblurred rings read as a pixel border */
+    radial-gradient(120% 60% at 50% 0%, rgba(159, 196, 106, 0.1), transparent 60%),
+    repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.018) 0 2px, transparent 2px 7px),
+    linear-gradient(170deg, #15231d, #0a120f);
+  /* a steel rim with a thin orange line inside, like a forehead protector */
   box-shadow:
-    inset 0 0 0 3px #0b0a0e,
-    inset 0 0 0 6px #c99f45,
-    inset 0 0 0 9px #7a5a22,
-    inset 0 0 0 11px #0b0a0e,
-    0 0 0 3px #0b0a0e,
+    inset 0 0 0 2px #070c0b,
+    inset 0 0 0 5px #9aa6ac,
+    inset 0 0 0 7px #4a565c,
+    inset 0 0 0 9px #070c0b,
+    inset 0 0 0 10px rgba(245, 139, 60, 0.7),
     0 30px 60px -20px rgba(0, 0, 0, 0.9),
-    0 0 50px -10px rgba(255, 120, 40, 0.25);
-  font-family: "Pixelify Sans", var(--display);
+    0 0 50px -12px rgba(245, 139, 60, 0.3);
+  font-family: var(--display);
   color: var(--ink);
-  image-rendering: pixelated;
 }
 
 .pcard-back {
@@ -432,145 +438,148 @@ h3 {
   padding: 22px 22px 18px;
 }
 
+/* engraved steel plate with a rivet at each end */
 .pcard-title {
+  position: relative;
+  width: 100%;
   margin: 0;
-  padding: 6px 4px 5px;
-  border: 3px solid #0b0a0e;
-  background: linear-gradient(180deg, #2a2030, #17121c);
-  box-shadow: inset 0 0 0 2px #7a5a22;
-  color: #f1d48a;
-  font-weight: 700;
+  padding: 8px 24px 7px;
+  border-radius: 6px;
+  background:
+    radial-gradient(circle at 12px 50%, #5d686e 0 3px, #e9eef0 3.5px 4.5px, transparent 5px),
+    radial-gradient(circle at calc(100% - 12px) 50%, #5d686e 0 3px, #e9eef0 3.5px 4.5px, transparent 5px),
+    linear-gradient(180deg, #eef2f3 0%, #b4bec3 48%, #7c878d 52%, #a7b1b6 100%);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.45), 0 2px 0 rgba(0, 0, 0, 0.5);
+  color: #1b2420;
   font-size: 15px;
-  line-height: 1;
+  font-weight: 800;
+  line-height: 1.1;
   letter-spacing: 0.14em;
   text-align: center;
   text-transform: uppercase;
-  text-shadow: 2px 2px 0 #0b0a0e;
-  width: 100%;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.55);
 }
 
 .pcard-art {
   position: relative;
   min-height: 0;
-  border: 3px solid #0b0a0e;
-  box-shadow: inset 0 0 0 2px #3a2a48, 0 0 0 2px #7a5a22;
-  background: #0a0e1c;
+  border-radius: 4px;
+  border: 3px solid #070c0b;
+  box-shadow: 0 0 0 2px #7c878d, inset 0 0 18px rgba(0, 0, 0, 0.5);
+  background: #0d1a1f url("/scene/valley.png") 50% 50% / cover no-repeat;
   overflow: hidden;
 }
 
 .pcard-art .pixel-canvas {
   position: absolute;
   inset: 0;
-  object-position: 50% 100%;
 }
 
+/* a strip of headband cloth */
 .pcard-plate {
   display: grid;
   gap: 4px;
   margin: 0;
-  padding: 7px 6px 6px;
-  border: 3px solid #0b0a0e;
-  background: linear-gradient(180deg, #2a2030, #17121c);
-  box-shadow: inset 0 0 0 2px #7a5a22;
+  padding: 8px 6px 7px;
+  border-radius: 4px;
+  background:
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.03) 0 1px, transparent 1px 4px),
+    linear-gradient(180deg, #1f2c3d, #141d29);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08);
   text-align: center;
   text-transform: uppercase;
 }
 
 .pcard-plate span:first-child {
-  color: #e0503f;
+  color: var(--ember);
   font-size: 10px;
-  letter-spacing: 0.3em;
+  font-weight: 700;
+  letter-spacing: 0.32em;
 }
 
 .pcard-plate span:last-child {
-  color: #f1d48a;
+  color: #f1f4ec;
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: 0.12em;
-  text-shadow: 2px 2px 0 #0b0a0e;
 }
 
-/* a pixel flame for the back */
 .pcard-sigil {
-  width: 8px;
-  height: 8px;
-  margin: 10px 0 8px;
-  color: #ffd38a;
-  box-shadow:
-    24px 0 0 #e0913a,
-    16px 8px 0 #e0913a, 24px 8px 0 #ffd38a, 32px 8px 0 #e0913a,
-    8px 16px 0 #8a4a1c, 16px 16px 0 #e0913a, 24px 16px 0 #ffd38a, 32px 16px 0 #e0913a, 40px 16px 0 #8a4a1c,
-    8px 24px 0 #8a4a1c, 16px 24px 0 #e0913a, 24px 24px 0 #fff3c4, 32px 24px 0 #e0913a, 40px 24px 0 #8a4a1c,
-    16px 32px 0 #8a4a1c, 24px 32px 0 #e0913a, 32px 32px 0 #8a4a1c,
-    0 40px 0 #3a281c, 8px 40px 0 #7a5a22, 16px 40px 0 #3a281c, 24px 40px 0 #7a5a22, 32px 40px 0 #3a281c, 40px 40px 0 #7a5a22, 48px 40px 0 #3a281c;
-  transform: translateX(-24px);
-  animation: sigil 1.4s steps(2) infinite;
+  margin: 14px 0 6px;
+  color: var(--ember);
+  filter: drop-shadow(0 0 10px rgba(245, 139, 60, 0.45));
+  animation: sigil 3.2s ease-in-out infinite;
 }
 
 @keyframes sigil {
-  50% { filter: brightness(1.25); transform: translateX(-24px) translateY(-1px); }
+  50% { transform: rotate(-8deg) scale(1.04); }
 }
 
 .pcard-name {
-  margin: 44px 0 0;
-  color: #f1d48a;
-  font-size: 17px;
-  font-weight: 700;
-  line-height: 1.2;
-  text-shadow: 2px 2px 0 #0b0a0e;
+  margin: 6px 0 0;
+  color: #f1f4ec;
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.25;
 }
 
 .pcard-meta {
   margin: 6px 0 0;
   color: var(--hint);
-  font-size: 12px;
+  font-family: var(--serif);
+  font-size: 13px;
+  font-style: italic;
 }
 
 .pcard-stats {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   align-self: center;
-  gap: 10px 14px;
+  gap: 10px 12px;
   width: 100%;
   margin: 14px 0 0;
 }
 
 .pcard-stats div {
-  padding: 6px 4px;
-  border: 2px solid #0b0a0e;
-  box-shadow: inset 0 0 0 1px #3a2a48;
-  background: rgba(0, 0, 0, 0.25);
+  padding: 8px 4px 7px;
+  border-radius: 4px;
+  border: 1px solid rgba(154, 166, 172, 0.45);
+  background: rgba(0, 0, 0, 0.28);
 }
 
 .pcard-stats dt {
-  color: #e0503f;
-  font-size: 18px;
-  font-weight: 700;
+  color: var(--ember);
+  font-size: 19px;
+  font-weight: 800;
   line-height: 1;
 }
 
 .pcard-stats dd {
-  margin: 4px 0 0;
+  margin: 5px 0 0;
   color: var(--body);
-  font-size: 10.5px;
+  font-family: var(--serif);
+  font-size: 11.5px;
   line-height: 1.25;
 }
 
 .pcard-flavor {
   margin: 0;
   color: var(--dim);
-  font-size: 11px;
+  font-family: var(--serif);
+  font-size: 12px;
+  font-style: italic;
 }
 
 .pcard-shine {
   position: absolute;
   inset: 0;
+  border-radius: 12px;
   pointer-events: none;
-  opacity: calc(0.25 + var(--shine) * 0.75);
+  opacity: calc(0.2 + var(--shine) * 0.7);
   mix-blend-mode: color-dodge;
   background:
-    radial-gradient(circle at var(--mx) var(--my), rgba(255, 236, 190, 0.32), transparent 42%),
-    linear-gradient(115deg, transparent 25%, rgba(255, 90, 70, 0.14) 38%, rgba(110, 160, 255, 0.14) 50%, rgba(255, 215, 120, 0.14) 62%, transparent 75%);
+    radial-gradient(circle at var(--mx) var(--my), rgba(255, 236, 200, 0.3), transparent 42%),
+    linear-gradient(115deg, transparent 25%, rgba(245, 139, 60, 0.14) 38%, rgba(99, 208, 196, 0.14) 50%, rgba(159, 196, 106, 0.14) 62%, transparent 75%);
   background-size: 100% 100%, 220% 220%;
   background-position: 0 0, var(--mx) var(--my);
 }
@@ -642,16 +651,16 @@ h3 {
   background: linear-gradient(90deg, transparent, var(--line-strong) 30%, var(--line-strong) 70%, transparent);
 }
 
+/* a four-pointed shuriken at the centre of the rule */
 .rule::after {
   content: "";
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 9px;
-  height: 9px;
-  border: 1px solid var(--gold);
-  background: var(--bg);
-  transform: translate(-50%, -50%) rotate(45deg);
+  width: 18px;
+  height: 18px;
+  background: var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 1 14 10 23 12 14 14 12 23 10 14 1 12 10 10Z' fill='%239fc46a'/%3E%3Ccircle cx='12' cy='12' r='2.2' fill='%23060b0a'/%3E%3C/svg%3E") center / contain no-repeat;
+  transform: translate(-50%, -50%) rotate(15deg);
 }
 
 .lead {
@@ -708,7 +717,7 @@ h3 {
   justify-self: center;
   padding: 12px;
   border: 1px solid var(--line);
-  background: linear-gradient(180deg, rgba(255, 138, 58, 0.06), transparent 40%);
+  background: linear-gradient(180deg, rgba(99, 208, 196, 0.06), transparent 40%);
 }
 
 .portrait::before,
@@ -1008,7 +1017,7 @@ h3 {
   padding: 26px 24px 22px;
   border: 1px solid var(--line);
   background:
-    linear-gradient(180deg, rgba(255, 138, 58, 0.035), transparent 30%),
+    linear-gradient(180deg, rgba(99, 208, 196, 0.035), transparent 30%),
     var(--panel);
   transition: border-color 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease, opacity 0.9s ease;
 }
@@ -1018,12 +1027,12 @@ h3 {
   position: absolute;
   inset: 6px;
   pointer-events: none;
-  border: 1px solid rgba(200, 180, 143, 0.06);
+  border: 1px solid rgba(170, 200, 180, 0.06);
 }
 
 .relic.is-shown:hover {
-  border-color: rgba(217, 184, 120, 0.5);
-  box-shadow: 0 20px 60px -30px rgba(255, 110, 30, 0.45);
+  border-color: rgba(169, 194, 122, 0.5);
+  box-shadow: 0 20px 60px -30px rgba(80, 200, 185, 0.45);
   transform: translateY(-4px);
 }
 
@@ -1111,7 +1120,7 @@ h3 {
 
 .attribute {
   padding: 26px 22px 28px;
-  background: #090706;
+  background: #08100e;
 }
 
 .attribute h3 {
@@ -1183,14 +1192,14 @@ h3 {
   height: 80px;
   margin-left: -70px;
   border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(255, 210, 140, 0.4), transparent);
+  background: radial-gradient(closest-side, rgba(200, 240, 230, 0.4), transparent);
   opacity: 0;
   transition: opacity 0.4s ease;
 }
 
 .summon-links a:hover {
-  border-color: rgba(255, 210, 140, 0.55);
-  box-shadow: 0 0 40px -12px rgba(255, 200, 120, 0.35);
+  border-color: rgba(200, 240, 230, 0.55);
+  box-shadow: 0 0 40px -12px rgba(180, 235, 225, 0.35);
 }
 
 .summon-links a:hover::after {
@@ -1238,13 +1247,24 @@ h3 {
 /* the shrine scene switches from a side framing to a centred one below aspect 1.05 */
 @media (max-aspect-ratio: 21/20) {
   .hero {
-    align-items: end;
+    align-items: start;
   }
 
   .hero-inner {
     grid-template-columns: minmax(0, 1fr);
-    padding-top: 44svh;
+    padding-top: min(calc(100vw * 243 / 240 * 0.94), 70svh);
     padding-bottom: 56px;
+  }
+
+  /* portrait: the valley spans the width at the top, the text follows below it */
+  .valley-panel {
+    left: 0;
+    width: 100%;
+    height: auto;
+    max-width: none;
+    max-height: 78svh;
+    -webkit-mask-image: linear-gradient(180deg, #000 70%, transparent 100%);
+    mask-image: linear-gradient(180deg, #000 70%, transparent 100%);
   }
 
   .hero-copy {
@@ -1253,8 +1273,7 @@ h3 {
   }
 
   .hero-scrim {
-    background:
-      linear-gradient(180deg, rgba(5, 4, 4, 0.5) 0%, transparent 14%, transparent 28%, rgba(5, 4, 4, 0.82) 50%, rgba(5, 4, 4, 0.9) 75%, var(--bg) 100%);
+    background: linear-gradient(180deg, rgba(6, 11, 10, 0.55) 0%, transparent 12%);
   }
 
   .scroll-cue {
@@ -1307,7 +1326,7 @@ h3 {
     flex-direction: column;
     gap: 0;
     padding: 8px var(--gutter) 18px;
-    background: rgba(5, 4, 4, 0.95);
+    background: rgba(6, 11, 10, 0.95);
     border-bottom: 1px solid var(--line);
   }
 

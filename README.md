@@ -1,36 +1,36 @@
-# Rifqi Fachruradzi · Souls Portfolio
+# Rifqi Fachruradzi · Portfolio
 
-A Dark Souls themed portfolio for Muhammad Rifqi Fachruradzi, built with React, TypeScript, and Vite.
+A Naruto-themed portfolio for Muhammad Rifqi Fachruradzi, built with React, TypeScript, and Vite: dark Konoha
+greens, Naruto-orange accents, a hand-drawn leaf mark, kanji section numbers, and shuriken dividers.
 
-- **Hero**: an animated pixel-art night scene drawn in code on a `<canvas>`: a gothic cathedral under a full
-  moon, red-leaved trees, a red grass field, and a lone knight with a greatsword. Stars twinkle, clouds drift,
-  the moon's halo breathes, windows and lanterns flicker, grass and leaves sway in the wind, leaves fall,
-  fireflies wander, the knight's cape flutters, and a glint runs up the blade now and then.
-- **The Ashen One**: a pixel trading card with a smaller version of the same scene. Hover tilts it toward the
+- **Hero**: the Valley of the End as a pixelated, animated background. The waterfall flows (its texture scrolls
+  down over the water pixels only, so the rocks in it stay put), foam churns at its foot, mist rises, the pool
+  shimmers, and leaves fly on the wind.
+- **Valley of the End card**: a ninja info card with the same animated valley inside. Hover tilts it toward the
   light, dragging spins it, and double-click (or Enter / F) flips it to the profile on the back.
 
-There are no image or model assets for the scenes, so they show immediately. They render at a low resolution
-(about 320 x 180) at 20 fps, are scaled up with `image-rendering: pixelated`, stop while offscreen or in a
-background tab, and draw a single still frame under `prefers-reduced-motion`.
+The background is one 23 KB pixel image (`public/scene/valley.png`, 240 x 243, 40 colours), animated on a canvas at
+20 fps and scaled up with `image-rendering: pixelated`. The animation stops while offscreen or in a background tab
+and stays still under `prefers-reduced-motion`.
 
 Content mirrors [portoqiqi.vercel.app](https://portoqiqi.vercel.app) and lives in `src/data/profile.ts`.
 
 ## Sections
 
-- **The Ashen One**: the interactive pixel card
-- **Bonfire**: about, character sheet, and education
-- **Journey**: work experience
-- **Relics**: projects with live demos and source links
-- **Attributes**: skills
+- **Card**: the interactive ninja info card
+- **About**: summary, character sheet, and education
+- **Missions**: work experience
+- **Projects**: projects with live demos and source links
+- **Jutsu**: skills
 - **Summon**: contact links
 
 ## Code map
 
-- `src/pixel/engine.ts`: a tiny pixel framebuffer (layers, ordered dithering, seeded randomness, noise).
-- `src/pixel/scene.ts`: the scene: layouts for landscape, portrait, and the card; static layers painted once;
-  everything that moves, painted per frame.
-- `src/components/PixelCanvas.tsx`: mounts a scene on a canvas sized to its host and runs the loop.
-- `src/components/PixelCard.tsx`: the card, its spring-based tilt, spin, and flip.
+- `src/pixel/engine.ts`: pixel helpers (colours, ordered dithering, seeded randomness, noise).
+- `src/pixel/valley.ts`: the valley animation: waterfall, foam, mist, pool, and leaves, cropped to a view.
+- `src/components/PixelCanvas.tsx`: mounts the valley on a canvas and runs the loop.
+- `src/components/NinjaCard.tsx`: the card, its spring-based tilt, spin, and flip.
+- `src/components/LeafMark.tsx`: the leaf-and-spiral mark.
 
 ## Development
 

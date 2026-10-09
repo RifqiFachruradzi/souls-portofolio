@@ -1,13 +1,14 @@
 import { useEffect, useRef, type KeyboardEvent, type PointerEvent } from "react";
+import { LeafMark } from "./LeafMark";
 import { PixelCanvas } from "./PixelCanvas";
 import { education, profile } from "../data/profile";
 
 /**
- * "The Ashen One" as a pixel trading card: hover tilts it toward the light, dragging spins it,
+ * A ninja info card from the Valley of the End: hover tilts it toward the light, dragging spins it,
  * double-click (or Enter / F) flips it over. The motion is a small spring, written straight to
  * the transform so nothing re-renders per frame.
  */
-export function PixelCard() {
+export function NinjaCard() {
   const stageRef = useRef<HTMLDivElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
   const motion = useRef({
@@ -120,7 +121,7 @@ export function PixelCard() {
       className="pcard-stage"
       role="button"
       tabIndex={0}
-      aria-label="The Ashen One, a pixel trading card. Drag to spin it, double-click or press Enter to flip it over."
+      aria-label="Ninja info card, Valley of the End. Drag to spin it, double-click or press Enter to flip it over."
       onPointerMove={onPointerMove}
       onPointerDown={onPointerDown}
       onPointerUp={endDrag}
@@ -131,21 +132,21 @@ export function PixelCard() {
     >
       <div ref={cardRef} className="pcard">
         <div className="pcard-face pcard-front">
-          <p className="pcard-title">The Ashen One</p>
+          <p className="pcard-title">Valley of the End</p>
           <div className="pcard-art">
-            <PixelCanvas variant="card" />
+            <PixelCanvas view="card" leaves={10} />
           </div>
           <p className="pcard-plate">
-            <span>Lord of Code</span>
+            <span>Shinobi of Code</span>
             <span>{profile.role}</span>
           </p>
           <span className="pcard-shine" aria-hidden="true" />
         </div>
         <div className="pcard-face pcard-back">
-          <p className="pcard-title">Bonfire Archive</p>
-          <div className="pcard-sigil" aria-hidden="true" />
+          <p className="pcard-title">Ninja Info Card</p>
+          <LeafMark className="pcard-sigil" size={64} />
           <p className="pcard-name">{profile.name}</p>
-          <p className="pcard-meta">{profile.role} · {profile.location}</p>
+          <p className="pcard-meta">Rank: Jōnin · {profile.role} · {profile.location}</p>
           <dl className="pcard-stats">
             {profile.stats.map((stat) => (
               <div key={stat.label}>

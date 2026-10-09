@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
+import { LeafMark } from "./LeafMark";
 
 const LINKS = [
   { href: "#ashen-one", label: "Card" },
-  { href: "#bonfire", label: "Bonfire" },
-  { href: "#journey", label: "Journey" },
-  { href: "#relics", label: "Relics" },
-  { href: "#attributes", label: "Attributes" },
+  { href: "#bonfire", label: "About" },
+  { href: "#journey", label: "Missions" },
+  { href: "#relics", label: "Projects" },
+  { href: "#attributes", label: "Jutsu" },
   { href: "#summon", label: "Summon" },
 ];
 
@@ -23,7 +24,7 @@ export function Nav() {
   return (
     <header className={`nav${scrolled ? " is-scrolled" : ""}${open ? " is-open" : ""}`}>
       <a className="nav-brand" href="#top" onClick={() => setOpen(false)}>
-        <span className="ember-dot" aria-hidden="true" />
+        <LeafMark className="nav-leaf" size={18} />
         Rifqi
       </a>
       <button
